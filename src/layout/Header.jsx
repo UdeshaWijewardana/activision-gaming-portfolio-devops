@@ -25,6 +25,6 @@ export default function Header() {
     <nav className="desktop-nav" aria-label="Main navigation">{navigation.map(item => <NavLink to={item.to} key={item.to}>{item.label}</NavLink>)}</nav>
     <Link className="header-contact" to="/contact">START A CONVERSATION <i>↗</i></Link>
     <button className="menu-button" type="button" aria-label={open ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <FiX /> : <FiMenu />}</button>
-    {open && <nav className="mobile-menu" aria-label="Mobile navigation" ref={menu}><div>{navigation.map((item, i) => <NavLink to={item.to} key={item.to}><small>0{i + 1}</small>{item.label}</NavLink>)}</div><p>AN ORIGINAL ACADEMIC EXPERIENCE<br />NOT AFFILIATED WITH ACTIVISION.</p></nav>}
+    {open && <nav className="mobile-menu" aria-label="Mobile navigation" ref={menu}><div>{navigation.map((item, i) => <NavLink to={item.to} key={item.to} onClick={() => setOpen(false)}><small>0{i + 1}</small>{item.label}</NavLink>)}</div><p>AN ORIGINAL ACADEMIC EXPERIENCE<br />NOT AFFILIATED WITH ACTIVISION.</p></nav>}
   </header>
 }
