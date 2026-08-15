@@ -1,0 +1,114 @@
+/* Theme overrides: premium dark + electric-blue palette */
+:root{
+  --bg: #05070A;
+  --bg-2: #0B1016;
+  --surface: #111820;
+  --text-primary: #F5F7FA;
+  --text-secondary: #9AA6B2;
+  --accent: #00AEEF;
+  --accent-hover: #32C5F4;
+  --border: #202A33;
+}
+
+/* Base */
+body{background:var(--bg);color:var(--text-primary)}
+a,button{color:inherit}
+
+/* Navigation */
+.site-header{background:transparent}
+.site-header.scrolled{background:rgba(5,7,10,.91);backdrop-filter:blur(12px)}
+.desktop-nav a,.header-contact{color:var(--text-secondary)}
+.desktop-nav a.active{color:var(--text-primary);border-bottom-color:var(--accent)}
+.header-contact i{color:var(--accent)}
+.menu-button{color:var(--text-primary)}
+.mobile-menu{background:var(--bg-2)}
+.mobile-menu a{color:var(--text-primary)}
+.mobile-menu a small{color:var(--accent)}
+
+/* Buttons */
+.button{border-color:var(--text-primary);color:var(--text-primary)}
+.button:hover{color:var(--text-primary)}
+.button-red{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.button-red:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.button-ghost:hover,.button-outline:hover{background:var(--text-primary);color:var(--bg)}
+.button-outline{border-color:var(--text-secondary)}
+
+/* Links and small accents */
+.text-link{border-bottom-color:var(--text-secondary)}
+.text-link i{color:var(--accent)}
+
+/* Loading / progress */
+.loading-screen{background:var(--bg)}
+.loading-mark span,.wordmark span{color:var(--accent)}
+.loader-copy{color:var(--text-secondary)}
+.loader-copy strong{color:var(--text-primary)}
+.loader-line{background:var(--border)}
+.loader-line i,.scroll-progress i{background:var(--accent)}
+.scroll-progress{background:rgba(255,255,255,.03)}
+
+/* Hero */
+.hero-content .eyebrow{color:var(--text-secondary)}
+.hero-copy{color:var(--text-secondary)}
+.hero-scroll i{background:var(--accent)}
+.hero-index{color:var(--text-secondary)}
+.hero-index span{color:var(--accent)}
+
+/* Surfaces & sections */
+.statement{background:var(--bg-2)}
+.featured-game{background:var(--bg)}
+.featured-game-copy>p{color:var(--text-secondary)}
+.game-meta{color:var(--text-secondary)}
+.statement-meta span{color:var(--text-secondary)}
+
+/* Filters / bars / borders */
+.filter-bar{border-bottom-color:var(--border)}
+.filter-bar button{color:var(--text-secondary)}
+.filter-bar button.active{color:var(--text-primary);border-bottom-color:var(--accent)}
+.feature-list{border-top-color:var(--border);border-bottom-color:var(--border)}
+.feature-list article{border-right-color:var(--border)}
+
+/* Details & plays */
+.play-disc{border-color:var(--text-secondary);background:rgba(17,24,32,.45);color:var(--text-primary)}
+.detail-meta{border-top-color:var(--border)}
+
+/* Projects / studios / values */
+.mission{background:var(--bg-2)}
+.large-copy{color:var(--text-secondary)}
+.studios>div{border-top-color:var(--border)}
+.studios span{color:var(--accent)}
+.studios b{color:var(--text-primary)}
+.projects-list>article{border-bottom-color:var(--border)}
+.project-number{color:var(--accent)}
+.project-copy>p{color:var(--text-secondary)}
+.project-copy dl div{border-top-color:var(--border)}
+
+/* Careers / jobs */
+.values span,.job-list button>span{color:var(--accent)}
+.values p,.job-details{color:var(--text-secondary)}
+.job-list article{border-top-color:var(--border)}
+.job-list article:last-child{border-bottom-color:var(--border)}
+
+/* News */
+.news{background:var(--bg-2)}
+.featured-news p{color:var(--text-secondary)}
+
+/* Footer */
+.site-footer{background:var(--surface);color:var(--text-primary)}
+.site-footer .eyebrow{color:var(--text-secondary)}
+.site-footer .button-red{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.footer-bottom nav a{color:var(--text-secondary)}
+
+/* Forms & focus */
+input,textarea,select{background:var(--surface);color:var(--text-primary);border:1px solid var(--border)}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);box-shadow:none}
+
+/* Global text adjustments */
+h1,h2{color:var(--text-primary)}
+p,li,dd,dt,small{color:var(--text-secondary)}
+
+/* Hover/focus subtle accent */
+a:hover,.desktop-nav a:hover,.button:hover{color:var(--text-primary)}
+.card:hover{border-color:var(--accent)}
+
+/* Reduce any excessive glow from existing styles */
+*{text-shadow:none}
