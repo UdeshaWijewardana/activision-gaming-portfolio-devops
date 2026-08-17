@@ -9,7 +9,7 @@ function renderApp(route = '/') { return render(<MemoryRouter initialEntries={[r
 
 afterEach(cleanup)
 
-test('renders the home experience', () => { renderApp(); expect(screen.getByRole('heading', { name: /we create/i })).toBeInTheDocument(); expect(screen.getByRole('link', { name: /explore games/i })).toHaveAttribute('href', '/games') })
+test('renders the home experience', () => { renderApp(); expect(screen.getByRole('heading', { level: 1, name: /game/i })).toBeInTheDocument(); expect(screen.getByRole('link', { name: /explore games/i })).toHaveAttribute('href', '/games') })
 
 test('filters games by category', async () => {
   const user = userEvent.setup()
