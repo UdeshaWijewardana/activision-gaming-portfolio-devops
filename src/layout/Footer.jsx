@@ -59,6 +59,9 @@ export default function Footer() {
           <Link to="/contact">Security</Link>
         </nav>
       </div>
+      <div className="footer-disclaimer">
+        <p>Academic portfolio / demonstration project. Not affiliated with or endorsed by Activision Publishing, Inc.</p>
+      </div>
     </footer>
   )
 }

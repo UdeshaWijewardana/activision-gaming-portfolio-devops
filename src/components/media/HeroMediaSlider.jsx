@@ -19,13 +19,13 @@ export default function HeroMediaSlider() {
     return () => window.clearInterval(interval)
   }, [reduced])
 
-  const current = videoClips[active]
+  const current = videoClips[active] || videoClips[0]
 
   return (
     <div className="hero-media-slider" aria-label="Studio cinematic background showcase">
-      <img className="hero-slider-fallback" src={current.poster || media.hero.poster} alt="" aria-hidden="true" fetchpriority="high" />
+      <img className="hero-slider-fallback" src={current?.poster || media.hero?.poster} alt="" aria-hidden="true" fetchpriority="high" />
       <AnimatePresence mode="wait">
-        {!reduced && (
+        {!reduced && current?.url && (
           <motion.video
             key={current.url}
             className="hero-slider-video"

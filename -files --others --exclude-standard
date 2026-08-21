@@ -1,0 +1,19 @@
+warning: in the working copy of 'src/components/GameCard.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/media/MediaImage.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/media/TrailerModal.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/games.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/media.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/GameDetail.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/Games.jsx', LF will be replaced by CRLF the next time Git touches it
+ src/App.test.jsx                         |    8 [32m+[m[31m-[m
+ src/components/GameCard.jsx              |   55 [32m+[m[31m-[m
+ src/components/media/HeroMediaSlider.jsx |    6 [32m+[m[31m-[m
+ src/components/media/MediaImage.jsx      |   43 [32m+[m[31m-[m
+ src/components/media/TrailerModal.jsx    |  239 [32m+++[m[31m----[m
+ src/data/games.js                        |  167 [32m++++[m[31m-[m
+ src/data/media.js                        |   59 [32m+[m[31m-[m
+ src/layout/Footer.jsx                    |    3 [32m+[m
+ src/pages/GameDetail.jsx                 |  329 [32m+++++++[m[31m--[m
+ src/pages/Games.jsx                      |  185 [32m+++[m[31m--[m
+ src/styles/index.css                     | 1125 [32m+++++++++++++++++++++++++++++[m[31m-[m
+ 11 files changed, 1865 insertions(+), 354 deletions(-)

@@ -14,7 +14,7 @@ test('renders the home experience', () => { renderApp(); expect(screen.getByRole
 test('filters games by category', async () => {
   const user = userEvent.setup()
   renderApp('/games')
-  const filterBtn = await screen.findByRole('button', { name: 'SPORTS' })
+  const filterBtn = await screen.findByRole('button', { name: 'ACTION' })
   await user.click(filterBtn)
   expect(await screen.findByRole('heading', { name: /tony hawk/i })).toBeInTheDocument()
   expect(screen.queryByRole('heading', { name: /^warzone$/i })).not.toBeInTheDocument()
@@ -35,7 +35,7 @@ test.each([
   ['/careers', /bring your/i],
   ['/news', /the latest/i],
   ['/contact', /start a/i],
-  ['/games/call-of-duty', /call of duty/i],
+  ['/games/call-of-duty', /^call of duty$/i],
   ['/missing-route', /world not/i]
 ])('renders route %s', async (route, heading) => {
   renderApp(route)
@@ -46,8 +46,8 @@ test('uses the CSS visual scene after the optional hero video fails to load', as
   const { container } = render(<VideoHero />)
   const video = container.querySelector('video')
   fireEvent.error(video)
-  await waitFor(() => expect(document.querySelector('.video-hero.visual-warzone')).toBeInTheDocument())
-  expect(document.querySelector('.video-hero video')).not.toBeInTheDocument()
+  await waitFor(() => expect(container.querySelector('.video-hero.visual-warzone')).toBeInTheDocument())
+  expect(container.querySelector('.video-hero video')).not.toBeInTheDocument()
 })
 
 test('mobile menu opens and closes with Escape', async () => {
