@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'react'
-import { FiSearch } from 'react-icons/fi'
-import PageHero from './PageHero'
+import { useMemo, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import GameCard from '../components/GameCard'
+import GameFilter from '../components/GameFilter'
+import GameSearch from '../components/GameSearch'
+import FeaturedMedia from '../components/FeaturedMedia'
 import TrailerModal from '../components/media/TrailerModal'
-import { filters, games } from '../data/games'
+import { filters, games, globalFeaturedMedia } from '../data/games'
 
 export default function Games() {
   const [active, setActive] = useState('ALL')
@@ -11,15 +13,17 @@ export default function Games() {
   const [modalOpen, setModalOpen] = useState(false)
   const [currentTrailerId, setCurrentTrailerId] = useState('A-n_9kG220c')
   const [currentTrailerTitle, setCurrentTrailerTitle] = useState('Official Game Trailer')
+  const gridRef = useRef(null)
 
   const visible = useMemo(() => {
     return games.filter((game) => {
-      const matchesCategory = active === 'ALL' || game.category.toUpperCase() === active.toUpperCase()
+      const matchesCategory = active === 'ALL' || game.category === active
+      const q = searchQuery.trim().toLowerCase()
       const matchesSearch =
-        searchQuery.trim() === '' ||
-        game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        game.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        game.category.toLowerCase().includes(searchQuery.toLowerCase())
+        !q ||
+        game.title.toLowerCase().includes(q) ||
+        game.description.toLowerCase().includes(q) ||
+        game.category.toLowerCase().includes(q)
       return matchesCategory && matchesSearch
     })
   }, [active, searchQuery])
@@ -30,69 +34,130 @@ export default function Games() {
     setModalOpen(true)
   }
 
+  const handleFilterSelect = (filter) => {
+    setActive(filter)
+  }
+
+  const resetAll = () => {
+    setActive('ALL')
+    setSearchQuery('')
+  }
+
   return (
     <main>
-      <PageHero
-        label="ALL EXPERIENCES / 01"
-        title={
-          <>
-            WORLD-<em>BUILDING.</em>
-          </>
-        }
-        copy="Explore our portfolio of blockbuster franchises, groundbreaking combat systems, and rich interactive worlds."
-        visual="warzone"
-      />
-      <section className="section-pad games-page">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', marginBottom: '24px' }}>
-          <div className="filter-bar" style={{ margin: 0, padding: 0, border: 'none' }} aria-label="Game category filters">
-            {filters.map((filter) => (
-              <button
-                className={active === filter ? 'active' : ''}
-                key={filter}
-                type="button"
-                onClick={() => setActive(filter)}
-                aria-pressed={active === filter}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-          <div style={{ position: 'relative', minWidth: '240px' }}>
-            <FiSearch style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            <input
-              type="text"
-              placeholder="Search franchises..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '8px 12px 8px 36px',
-                borderRadius: 'var(--radius-full)',
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid var(--border-subtle)',
-                color: '#fff',
-                fontFamily: 'inherit',
-                fontSize: '0.9rem'
-              }}
-            />
-          </div>
+      {/* ══════════════════════════════════════════
+          CINEMATIC HERO
+      ══════════════════════════════════════════ */}
+      <section className="gh-hero" aria-label="Games page hero">
+        {/* Background — local asset, loads immediately */}
+        <div
+          className="gh-hero-bg"
+          style={{ backgroundImage: "url('/media/hero/hero-poster.webp')" }}
+          aria-hidden="true"
+        />
+        <div className="gh-hero-overlay" aria-hidden="true" />
+
+        <div className="gh-hero-content">
+          {/* Animated red accent line */}
+          <motion.span
+            className="gh-hero-accent"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            aria-hidden="true"
+          />
+
+          <motion.p
+            className="gh-hero-label eyebrow"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            ALL EXPERIENCES / 01
+          </motion.p>
+
+          <motion.h1
+            className="gh-hero-title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          >
+            THE <em>GAMES</em>
+          </motion.h1>
+
+          <motion.p
+            className="gh-hero-sub"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            ENTER WORLDS BUILT FOR THE NEXT GENERATION.
+          </motion.p>
         </div>
-        <div className="game-grid all-games" style={{ marginTop: '32px' }}>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          CONTROLS — FILTER + SEARCH
+      ══════════════════════════════════════════ */}
+      <section className="section-pad games-page">
+        <div className="gh-controls">
+          <GameFilter filters={filters} active={active} onSelect={handleFilterSelect} />
+          <GameSearch value={searchQuery} onChange={setSearchQuery} />
+        </div>
+
+        {/* ── Editorial game grid ── */}
+        <div
+          ref={gridRef}
+          className={`game-grid-editorial${visible.length === 1 ? ' game-grid-single' : ''}`}
+          style={{ marginTop: '32px' }}
+        >
           {visible.map((game, index) => (
-            <GameCard key={game.slug} game={game} index={index} onPlayTrailer={openTrailer} />
+            <GameCard
+              key={game.slug}
+              game={game}
+              index={index}
+              onPlayTrailer={openTrailer}
+            />
           ))}
         </div>
+
+        {/* ── Empty state ── */}
         {!visible.length && (
-          <div className="empty-state">
-            <p>No game franchises match your filter or search query.</p>
-            <button className="button button-outline-sm" type="button" onClick={() => { setActive('ALL'); setSearchQuery('') }}>
-              Reset Filters
+          <motion.div
+            className="gh-empty"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            role="status"
+            aria-live="polite"
+          >
+            <span className="gh-empty-icon" aria-hidden="true">◈</span>
+            <h2>NO GAMES FOUND</h2>
+            <p>No results match &ldquo;{searchQuery || active}&rdquo;. Try adjusting your search or filter.</p>
+            <button
+              type="button"
+              className="button button-red"
+              onClick={resetAll}
+            >
+              RESET FILTERS
             </button>
-          </div>
+          </motion.div>
         )}
       </section>
 
-      <TrailerModal isOpen={modalOpen} onClose={() => setModalOpen(false)} trailerId={currentTrailerId} title={currentTrailerTitle} />
+      {/* ══════════════════════════════════════════
+          FEATURED MEDIA SHOWCASE
+      ══════════════════════════════════════════ */}
+      <div className="section-pad" style={{ paddingTop: 0 }}>
+        <FeaturedMedia items={globalFeaturedMedia} heading="FEATURED MEDIA" />
+      </div>
+
+      <TrailerModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        trailerId={currentTrailerId}
+        title={currentTrailerTitle}
+      />
     </main>
   )
 }
