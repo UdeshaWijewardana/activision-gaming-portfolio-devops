@@ -6,7 +6,6 @@ import { jobs, benefits } from '../data/careers'
 
 export default function Careers() {
   const [selectedDept, setSelectedDept] = useState('ALL')
-  const [appliedJob, setAppliedJob] = useState(null)
 
   const departments = ['ALL', 'ENGINEERING', 'DESIGN', 'ART', 'INFRASTRUCTURE', 'AUDIO']
 
