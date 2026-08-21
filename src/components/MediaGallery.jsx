@@ -14,8 +14,8 @@ export default function MediaGallery({ images = [], heading = 'MEDIA GALLERY' })
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), [])
 
-  const goNext = () => setLightboxIndex((i) => (i + 1) % images.length)
-  const goPrev = () => setLightboxIndex((i) => (i - 1 + images.length) % images.length)
+  const goNext = useCallback(() => setLightboxIndex((i) => (i + 1) % images.length), [images.length])
+  const goPrev = useCallback(() => setLightboxIndex((i) => (i - 1 + images.length) % images.length), [images.length])
 
   useEffect(() => {
     if (lightboxIndex === null) return
@@ -32,7 +32,7 @@ export default function MediaGallery({ images = [], heading = 'MEDIA GALLERY' })
       document.body.style.overflow = ''
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [lightboxIndex, closeLightbox])
+  }, [lightboxIndex, closeLightbox, goNext, goPrev])
 
   if (!images.length) return null
 

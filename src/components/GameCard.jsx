@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { FiPlay, FiArrowUpRight } from 'react-icons/fi'
 import MediaImage from './media/MediaImage'
 import { media } from '../data/media'
 
 export default function GameCard({ game, index = 0, onPlayTrailer }) {
-  const reduced = useReducedMotion()
 
   // Image priority chain: game.image → media.visuals[game.visual] → local fallback
   const primarySrc = game.image || media.visuals[game.visual]
