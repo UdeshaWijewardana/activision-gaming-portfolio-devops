@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 // YouTube thumbnail helper — free, stable, served from Google CDN
 const YT = (id) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`
+=======
+const root = `${import.meta.env.BASE_URL}media`
+>>>>>>> Stashed changes
 
 export const media = {
   hero: {
