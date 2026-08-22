@@ -73,9 +73,11 @@ No collaboration history, names, student IDs, commits, or pull requests have bee
 
 ## Contributors and individual contributions
 
-| Contributor | Contribution |
-| --- | --- |
-| Add real team member | Add actual contribution after work is completed |
+D.A.N.U.WIJEWARDANA  |ITBIN-2211-0321  |Frontend development, 
+homepage, UI/UX, Git/CI/CD 
+D D H K WIJAYARATHNE | ITBIN-2211-0318 | | Frontend development, 
+theme/UI updates, 
+collaboration 
 
 ## Testing
 
