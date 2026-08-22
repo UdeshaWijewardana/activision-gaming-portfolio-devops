@@ -7,4 +7,4 @@ import './styles/index.css'
 import './styles/theme.css'
 import './styles/home-redesign.css'
 
-createRoot(document.getElementById('root')).render(<StrictMode><BrowserRouter><ErrorBoundary><App /></ErrorBoundary></BrowserRouter></StrictMode>)
+createRoot(document.getElementById('root')).render(<StrictMode><BrowserRouter basename={import.meta.env.BASE_URL}><ErrorBoundary><App /></ErrorBoundary></BrowserRouter></StrictMode>)
